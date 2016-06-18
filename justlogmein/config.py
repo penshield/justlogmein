@@ -1,7 +1,7 @@
 __author__ = 'snouto'
 
-template_folder ="/media/snouto/rest/projects/justlogmein/templates"
-static_folder="/media/snouto/rest/projects/justlogmein/static"
+template_folder ="/media/snouto/rest/projects/justlogmein-project/justlogmein/templates"
+static_folder="/media/snouto/rest/projects/justlogmein-project/justlogmein/static"
 
 """
 The following is the MongoDB database connectivity parameters that are system wide applied
