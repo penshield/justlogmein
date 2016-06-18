@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+    Add new Site
+{% endblock %}
+
+{% block pagecontent %}
+
+    {% include 'fragments/alerts.html' %}
+    <br/>
+    <div class="card">
+      <div class="card-header">
+          <h2>"Add New Site"<small>Please use the following form to add a new site</small></h2>
+      </div>
+    <div class="card-body card-padding">
+        <form id="site-form" method="post" action="{{ url_for('sites_add') }}">
+             {{ form.csrf_token }}
+        <div class="form-group">
+            <div class="fg-line">
+                {{ form.name(placeholder="Site Name",class="form-control input-lg") }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="fg-line">
+                {{ form.folder(placeholder='Site Folder',class="form-control input-lg") }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="fg-line">
+                {{ form.url(placeholder='Website URL',class="form-control input-lg") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="fg-line">
+                {{ form.username(placeholder="User Name",class="form-control input-lg") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="fg-line">
+                {{ form.password(placeholder="Password",class="form-control input-lg") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="fg-line">
+                {{ form.notes(placeholder='Type Some Notes',class="form-control") }}
+            </div>
+        </div>
+            <div class="form-group">
+            <div class="fg-line">
+                {{ form.icon() }}
+                {{ form.site_id() }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="fg-line">
+               <div class="row m-b-20">
+                                <div class="col-sm-4 m-b-20">
+                                    <div class="toggle-switch">
+                                        <label for="favourite" class="ts-label">Favourite</label>
+                                        {{ form.favourite(hidden="hidden") }}
+                                        <label for="favourite" class="ts-helper"></label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 m-b-20">
+                                    <div class="toggle-switch">
+                                        <label for="autologin" class="ts-label">Auto-Login</label>
+                                        {{ form.autologin(hidden="hidden") }}
+                                        <label for="autologin" class="ts-helper"></label>
+                                    </div>
+                                </div>
+
+                                   <div class="col-sm-4 m-b-20">
+                                    <div class="toggle-switch">
+                                        <label for="autofill" class="ts-label">Auto-Fill</label>
+                                        {{ form.autofill(hidden="hidden") }}
+                                        <label for="autofill" class="ts-helper"></label>
+                                    </div>
+                                </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="fg-line">
+                <div class="row m-b-20">
+                <div class="btn-demo pull-right">
+                    <a href="{{ url_for('sites_display') }}"  class="btn btn-lg bgm-red waves-effect">Cancel</a>
+                    <a href="#" onclick="document.getElementById('site-form').submit();"  class="btn btn-lg bgm-blue waves-effect">Add Site</a>
+                </div>
+                    </div>
+                </div>
+        </div>
+
+            </form>
+    </div>
+    </div>
+
+
+
+{% endblock %}

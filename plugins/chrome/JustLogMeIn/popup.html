@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just Log Me In</title>
+    <link href="vendors/bower_components/sweetalert/dist/sweetalert-override.min.css" rel="stylesheet">
+    <link href="vendors/bower_components/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="vendors/socicon/socicon.min.css" rel="stylesheet">
+    <!-- CSS -->
+    <link href="css/app.min.1.css" rel="stylesheet">
+    <link href="css/app.min.2.css" rel="stylesheet">
+    <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/startup.js"></script>
+
+</head>
+<body class="bgm-white" style="width: 400px;height:400px;">
+
+<div class="container">
+    <img src="img/logmein.png" style="margin-top:0;margin-bottom: 5px;width: 300px;height:auto;" class="center-block">
+    <form id="mainForm" method="post" action="pages/index.html">
+    <div class="lc-block toggled" style="margin-top:10px;" id="l-login">
+        <div class="input-group m-b-20">
+            <span class="input-group-addon"><i class="md md-person"></i></span>
+            <div class="fg-line">
+                <input id="username" type="text" class="form-control" placeholder="Enter Username">
+            </div>
+        </div>
+
+        <div class="input-group m-b-20">
+            <span class="input-group-addon"><i class="md md-accessibility"></i></span>
+            <div class="fg-line">
+                <input id="password" type="password" class="form-control" placeholder="Enter Password">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <button id="btn-main-signup" class="btn btn-lg btn-login btn-primary center-block waves-effect pull-left">Sign Up</button>
+        <button id="btn-main-login" class="btn btn-lg btn-login btn-primary center-block waves-effect pull-right">Login</button>
+
+    </div>
+    </form>
+</div>
+<script src="js/myscript.js"></script>
+</body>
+</html>

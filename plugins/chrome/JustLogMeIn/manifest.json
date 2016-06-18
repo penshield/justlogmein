@@ -1,0 +1,27 @@
+{
+    "manifest_version":2,
+    "name":"Just Log Me In",
+    "description":"This is a simple Description for this application",
+    "version":"0.1",
+    "icons":{
+        "64":"icon.png"
+    },
+    "browser_action":{
+        "default_icon":"icon.png"
+
+                     },
+    "permissions":[
+        "background","tabs","<all_urls>","storage"
+    ],
+    "content_scripts":[{
+
+        "matches":["http://*/*","https://*/*"],
+        "js":["js/UrlParser.js","content.js"],
+        "all_frames":false
+    }],
+    "background": {
+        "scripts": ["background.js","communication-background.js"],
+        "persistent": false
+    }
+
+}

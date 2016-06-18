@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{%- from 'macros/site_display.html' import DisplaySite %}
+{% block pagetitle %}
+    Available Sites
+{% endblock %}
+
+{% block title %}
+    Available Sites - Just Log Me In
+{% endblock %}
+
+
+
+{% block headercontrols %}
+     <div class="btn-group pull-right">
+         <a href="{{ url_for('sites_add') }}" class="btn btn-primary btn-icon-text  waves-effect">New Site</a></div>
+    <br/><br/>
+{% endblock %}
+
+{% block pagecontent %}
+
+{% include 'fragments/alerts.html' %}
+<br/>
+
+                                               {% for site in sites %}
+                                                   <div  class="col-sm-4">
+                                                   {% if site.icon != None %}
+                                                   {{  DisplaySite(name=site.name,url=site.url,username=site.username,note=site.note,settings='',
+                                                img='data:image/png;base64,%s' % site.icon,id=site.id)
+            }}
+                                                   {% else %}
+                                                   {{  DisplaySite(name=site.name,url=site.url,username=site.username,note=site.note,settings='',
+                                                img='/static/img/na.png',id=site.id)
+            }}
+
+                                                   {% endif %}
+                                                   </div>
+                                               {% endfor  %}
+
+
+
+
+
+
+
+{% endblock %}

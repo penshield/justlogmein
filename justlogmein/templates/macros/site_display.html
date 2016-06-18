@@ -1,0 +1,47 @@
+{% macro DisplaySite(name,url,username,note,settings,img,id) -%}
+
+                    <div class="card">
+                            <div class="listview">
+                                <div class="lv-header">
+                                    <h2>{{ name }}</h2>
+                                     <ul class="actions">
+                                        <li class="dropdown action-show">
+                                            <a href="#" data-toggle="dropdown">
+                                                <i class="md md-more-vert"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a target="_blank" href="{{ url }}" >Launch</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/account/sites/update/{{ id }}">Update Site</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/account/sites/delete/{{ id }}">Delete Site</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="lv-body">
+                                    <div class="lv-item">
+                                       {% if img is defined %}
+                                         <img style="width:64px;height:64px;" src="{{ img }}" class="img-responsive center-block"/>
+                                        {% else %}
+                                         <img style="width:64px;height:64px;" src="/static/img/na.png" class="img-responsive center-block"/>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+
+                                <div class="lv-footer">
+                                        <a target="_blank" href="{{ url }}" data-toggle="tooltip" title="Launch Site" class="btn bgm-amber btn-icon waves-effect waves-circle waves-float"><i class="md md-done-all"></i></a>
+                                        <a href="/account/sites/delete/{{ id }}" class="btn bgm-cyan btn-icon" data-toggle="tooltip" title="Delete Site"><i class="md md-close"></i></a>
+                                        <a href="/account/sites/update/{{ id }}" class="btn btn-success btn-icon waves-effect waves-circle waves-float" data-toggle="tooltip" title="Update Site"><i class="md md-more-vert"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+
+{%- endmacro %}

@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+{% block topheaders %}
+    {{ super() }}
+     <link href="/static/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+        <link href="/static/vendors/bower_components/sweetalert/dist/sweetalert-override.min.css" rel="stylesheet">
+        <link href="/static/vendors/bower_components/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="/static/vendors/socicon/socicon.min.css" rel="stylesheet">
+        <link href="/static/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block pagecontent %}
+
+     <div class="block-header">
+                        <h2>{{ current_user.name }} <small>User Role : {{ current_user.roles[0].name }} , Role Description : {{ current_user.roles[0].description }}</small></h2>
+
+
+
+
+                        {% include 'fragments/alerts.html' %}
+
+
+                    </div>
+
+                    <div class="card" id="profile-main">
+                        <div class="pm-overview c-overflow">
+                            <div class="pmo-pic">
+                                <div class="p-relative">
+                                    <a href="#">
+                                        <img class="img-responsive" style="width: 200px;height:200px;" src="/static/img/profile-pics/profile_pic.png" alt="">
+                                    </a>
+
+                                    <div class="dropdown pmop-message">
+                                        <a data-toggle="dropdown" href="#" class="btn bgm-white btn-float z-depth-1">
+                                            <i class="md md-message"></i>
+                                        </a>
+
+                                        <div class="dropdown-menu">
+                                            <textarea placeholder="Write something..."></textarea>
+
+                                            <button class="btn bgm-green btn-icon"><i class="md md-send"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <a href="#" class="pmop-edit">
+                                        <i class="md md-camera-alt"></i> <span class="hidden-xs">Update Profile Picture</span>
+                                    </a>
+                                </div>
+
+
+                                <div class="pmo-stat">
+                                    <h2 class="m-0 c-white">1562</h2>
+                                    Total Connections
+                                </div>
+                            </div>
+
+                            <div class="pmo-block pmo-contact hidden-xs">
+                                <h2>Contact</h2>
+
+                                <ul>
+                                    <li><i class="md md-phone"></i>{{ form.mobile.data }}</li>
+                                    <li><i class="md md-email"></i> {{ form.email.data }}</li>
+
+                                </ul>
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                        </div>
+
+                        <div class="pm-body clearfix">
+                            <ul class="tab-nav tn-justified">
+                                <li class="active waves-effect"><a href="/account/profile">About</a></li>
+                            </ul>
+
+
+
+
+                            <div class="pmb-block">
+                                <div class="pmbb-header">
+                                    <h2><i class="md md-person m-r-5"></i> Basic Information</h2>
+
+                                    <ul class="actions">
+                                        <li class="dropdown">
+                                            <a href="#" data-toggle="dropdown">
+                                                <i class="md md-more-vert"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a data-pmb-action="edit" href="#">Edit</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="pmbb-body p-l-30">
+                                    <div class="pmbb-view">
+                                        <dl class="dl-horizontal">
+                                            <dt>Full Name</dt>
+                                            <dd>{{ form.name.data }}</dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt>Gender</dt>
+                                            {% if form.gender.data =='1' %}
+                                            <dd>Male</dd>
+                                            {% else %}
+                                                <dd>Female</dd>
+                                            {% endif %}
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt>Birthday</dt>
+                                            <dd>{{ form.birthDate.data.strftime('%Y-%m-%d')}}</dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt>Password</dt>
+                                            <dd>*********</dd>
+                                        </dl>
+
+                                    </div>
+
+                                    <div class="pmbb-edit">
+
+                                        <form id="basic-form" method="post" action="{{ url_for('update_general_info') }}">
+                                            {{ form.csrf_token }}
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">Full Name</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    {{ form.name(class='form-control') }}
+                                                </div>
+
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">Gender</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    {{ form.gender(class='form-control') }}
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">Birthday</dt>
+                                            <dd>
+                                                <div class="dtp-container dropdown fg-line">
+                                                   {# <input type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="Click here...">#}
+                                                    {{ form.birthDate(class='form-control date-picker',data_toggle='dropdown') }}
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+
+
+
+                                        <div class="m-t-30">
+                                            <button onclick="document.getElementById('basic-form').submit();" class="btn btn-primary btn-sm">Save</button>
+                                            <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                        </div>
+
+                                            </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="pmb-block">
+                                <div class="pmbb-header">
+                                    <h2><i class="md md-phone m-r-5"></i> Contact Information</h2>
+
+                                    <ul class="actions">
+                                        <li class="dropdown">
+                                            <a href="#" data-toggle="dropdown">
+                                                <i class="md md-more-vert"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a data-pmb-action="edit" href="#">Edit</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="pmbb-body p-l-30">
+                                    <div class="pmbb-view">
+                                        <dl class="dl-horizontal">
+                                            <dt>Mobile Phone</dt>
+                                            <dd>{{ form.mobile.data }}</dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt>Email Address</dt>
+                                            <dd>{{ form.email.data }}</dd>
+                                        </dl>
+
+                                    </div>
+
+                                    <div class="pmbb-edit">
+
+                                        <form id="contact-form" method="post" action="{{ url_for('update_contact') }}">
+                                            {{ form.csrf_token }}
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">Mobile Phone</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    {#<input type="text" class="form-control" placeholder="eg. 00971 12345678 9">#}
+                                                    {{ form.mobile(class='form-control') }}
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">Email Address</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                   {# <input type="email" class="form-control" placeholder="eg. malinda.h@gmail.com">#}
+                                                    {{ form.email(class='form-control') }}
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+
+                                        <div class="m-t-30">
+                                            <button onclick="document.getElementById('contact-form').submit();" class="btn btn-primary btn-sm">Save</button>
+                                            <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                        </div>
+
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+{% endblock %}
+
+
+{% block downheaders %}
+     <script src="/static/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/static/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script src="/static/vendors/bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+        <script src="/static/vendors/bower_components/Waves/dist/waves.min.js"></script>
+        <script src="/static/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+        <script src="/static/vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="/static/vendors/bower_components/moment/min/moment.min.js"></script>
+        <script src="/static/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+        <script src="/static/js/functions.js"></script>
+        <script src="/static/js/demo.js"></script>
+{% endblock %}

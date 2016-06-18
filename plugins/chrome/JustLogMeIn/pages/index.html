@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Account Page - Just Log Me In</title>
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../css/jquery.mobile.scrollview.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../js/jquery.nested.js"></script>
+    <script src="../js/jquery.mobile.easing.js"></script>
+    <script src="../js/jquery.mobile.scrollview.js"></script>
+
+
+
+</head>
+<body style="width:500px;height:500px;" data-scroll="true">
+<div data-role="page" id="firstPage">
+
+    <div data-role="header">
+        <h1>Just Log Me In</h1>
+        <img style="width:32px;height:32px;" src="../icon.png" class="ui-btn-left">
+        <a href="#"  data-icon="forward" class="ui-btn-right ui-btn-icon-left ui-icon-action ui-pop-out">Pop</a>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content" data-scroll="true">
+        <ul id="mainListView" data-role="listview" data-inset="true" data-scroll="true">
+            <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b">Your Account</li>
+            <li><a id="savedSites" href="#sites"  data-transition="fade">Saved Sites
+            <span id="numSites" class="ui-li-count"></span>
+            </a>
+
+            </li>
+            <li><a href="#">Saved Notes</a></li>
+            <li><a href="#">Saved Form Fills</a></li>
+            <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b">Passwords Vault</li>
+            <li><a href="#">Generate Secure Password</a></li>
+            <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b">Misc</li>
+            <li><a href="#">Recently Viewed</a></li>
+            <li><a href="#">Options</a></li>
+            <li><a href="#">Preferences</a></li>
+        </ul>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-fullscreen="true" data-position="fixed" class="ui-footer ui-footer-fullscreen">
+        <a href="#" id="firstlogout" data-role="button" class="ui-btn ui-shadow  ui-corner-all ui-btn-icon-left ui-icon-power"></a>
+
+
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+<div id="sites"  data-role="page" data-scroll="true" data-add-back-btn="true" data-back-btn-text="Back">
+    <div data-role="header" data-add-back-btn="true">
+        <a href="#firstPage" data-icon="back" class="ui-btn-left ui-btn-icon-left">Back</a>
+        <h1>Just Log Me In</h1>
+        <a href="#"  data-icon="forward" class="ui-btn-right ui-btn-icon-left ui-icon-action ui-pop-out">Pop</a>
+    </div><!-- /header -->
+
+    <div role="main" data-role="content" data-scroll="true" class="ui-content">
+        <ul id="siteslistview"  data-scroll="true" data-role="listview"  data-inset="true">
+
+        </ul>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-fullscreen="true" data-position="fixed" class="ui-footer ui-footer-fullscreen">
+        <a href="#" id="logout" data-role="button" class="ui-btn ui-shadow  ui-corner-all ui-btn-icon-left ui-icon-power"></a>
+
+
+    </div><!-- /footer -->
+</div>
+
+
+<script src="../js/myscript.js"></script>
+<script src="../js/inithome.js"></script>
+
+
+</body>
+</html>
