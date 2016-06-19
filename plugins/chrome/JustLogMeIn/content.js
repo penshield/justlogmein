@@ -16,11 +16,19 @@ auto_style='cursor:auto;background-image: url("data:image/png;base64,iVBORw0KGgo
  }
  bb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates.  p is the point and (x,y) its coordinates.
  */
+
+chrome.runtime.onMessage.addListener(function(request, sender, callback) {
+    if (request.message == "getdom") {
+        callback(document);
+    }
+});
 var isPointInside = function(rect,x,y){
 
     return (rect.top <= x && x <= rect.bottom && rect.left <= y && y <= rect.right);
 
-}
+};
+
+
 
 var inject_pattern = function(input,obj,type){
 
@@ -50,12 +58,25 @@ var inject_pattern = function(input,obj,type){
         }else{
             iframe_obj = document.createElement('iframe');
             iframe_obj.style = iframe_style;
-            iframe_obj.document.open();
-            iframe_obj.document.write("Hello World");
-            iframe_obj.document.close();
             iframe_obj.id ="embeddedFrame";
+            var html ="<html lang='en'> <head> <meta name='viewport' content='width=device-width, initial-scale=1'> <title>Just Log Me In - Field Settings</title> <link rel='stylesheet' href='%jquerymobilecss%'> <link rel='stylesheet' href='%jquerytheme%'> <link rel='stylesheet' href='%jquerystructure%'> <script type='application/javascript' src='%jquery%'></script> <script type='application/javascript' src-='%jquerysec%'></script> <script type='application/javascript' src='%jquerymobilejs%'></script> </head> <body> <div data-role='page' data-quicklinks='true'> <div data-demo-html='true'> <div data-role='tabs'> <div data-role='navbar'> <ul> <li><a href='#one' data-theme='b' data-ajax='false' data-icon='plus'>Add Site</a></li> <li><a href='#two' data-theme='b' data-ajax='false' data-icon='gear'>Matched Site(s)</a></li> <li><a href='ajax-content-ignore.html' data-theme='b' data-ajax='false' data-icon='eye'>Generate Password</a></li> </ul> </div> <div id='one' class='ui-content'> <h1>First tab contents</h1> </div> <div id='two' class='ui-content'> <ul data-role='listview'> <li><a href='#'>Acura</a></li> <li><a href='#'>Audi</a></li> <li><a href='#'>BMW</a></li> <li><a href='#'>Cadillac</a></li> <li><a href='#'>Ferrari</a></li> </ul> </div> </div> </div> <div data-role='footer' data-position='fixed'> <button class='btn btn-primary'>Close</button> </div> </div> </body> </html>";
+            var replacements = {'%jquerymobilecss%':chrome.extension.getURL('css/jquery.mobile-1.4.5.min.css'),
+            '%jquerytheme%':chrome.extension.getURL('css/jquery.mobile.theme-1.4.5.min.css'),
+            '%jquerystructure%':chrome.extension.getURL('css/jquery.mobile.structure-1.4.5.min.css'),
+            '%jquery%':chrome.extension.getURL('js/jquery.min.js'),
+            '%jquerymobilejs%':chrome.extension.getURL('js/jquery.mobile-1.4.5.min.js'),
+            "%jquerysec%":chrome.extension.getURL('js/iframesecurity.js')};
+            html = html.replace(/%\w+%/g,function(all){
+                return replacements[all] || all;
+            });
+            //'data:text/html;charset=utf-8,' + encodeURI(html);
+            //iframe_obj.src = 'data:text/html;charset=utf-8;origin=justlogmein,' + encodeURI(html);
+            //iframe_obj.body = html;
+            iframe_obj.src = chrome.extension.getURL('pages/field-popup.html');
             iframe_obj.name = "embeddedFrame";
+            iframe_obj.target = document;
             document.body.appendChild(iframe_obj);
+
         }
 
     };
@@ -63,6 +84,15 @@ var inject_pattern = function(input,obj,type){
     input.onmouseout = function(){
 
         input.style = auto_style;
+    };
+
+    input.onclick = function(){
+
+        var frame = document.getElementById("embeddedFrame");
+
+        if(frame != null && frame != undefined){
+            frame.remove();
+        }
     };
 
 
