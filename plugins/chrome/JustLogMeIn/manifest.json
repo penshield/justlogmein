@@ -17,7 +17,7 @@
 
         "matches":["http://*/*","https://*/*"],
         "js":["js/UrlParser.js","content.js"],
-        "all_frames":false
+        "all_frames":true
     }],
     "background": {
         "scripts": ["background.js","communication-background.js"],
@@ -29,6 +29,8 @@
         "js/*.js",
         "images/*",
         "pages/*.html"
-    ]
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+
 
 }

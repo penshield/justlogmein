@@ -1,0 +1,18 @@
+
+.ui-site{
+
+    border-radius: 25px;
+    background-color: #cddc39;
+    font-size: small;
+    padding-left: 15px;
+    border: 2px solid #73AD21;
+
+
+}
+
+.ui-site:hover{
+
+    border: 2px solid #af0b12;
+
+}
+

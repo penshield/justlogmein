@@ -5,34 +5,49 @@
     <link rel='stylesheet' href='../css/jquery.mobile-1.4.5.min.css'>
     <link rel='stylesheet' href='../css/jquery.mobile.theme-1.4.5.min.css'>
     <link rel='stylesheet' href='../css/jquery.mobile.structure-1.4.5.min.css'>
+    <link rel='stylesheet' href='../css/field-popup.css'>
     <script type='application/javascript' src='../js/jquery.min.js'></script>
     <script type='application/javascript' src='../js/iframesecurity.js'></script>
     <script type='application/javascript' src='../js/jquery.mobile-1.4.5.min.js'></script>
+    <script type="application/javascript" src="../js/fieldpopup-config.js"></script>
 </head>
-<body>
-<div data-role='page'  data-quicklinks='true'>
-    <div data-demo-html='true'>
+<body >
+<div data-role='page'>
+    <div>
         <div data-role='tabs'>
             <div data-role='navbar'>
                 <ul>
-                    <li><a href='#one' data-theme='b'  data-ajax='false' data-icon='plus'></a></li>
-                    <li><a href='#two' data-theme='b' data-ajax='false' data-icon='gear'></a></li>
+                    <li><a href='#matched_sites' data-theme='b'  data-ajax='false' data-icon='plus'></a></li>
+                    <li><a href='#password_generator' data-theme='b' data-ajax='false' data-icon='gear'></a></li>
                     <li><a href='ajax-content-ignore.html' data-theme='b' data-ajax='false' data-icon='eye'></a></li>
                 </ul>
             </div>
-            <div id='one' class='ui-content'>
-                <h1>First tab contents</h1>
-            </div>
-            <div id='two' class='ui-content'>
-                <ul data-role='listview'>
-                    <li><a href='#'>Acura</a></li>
-                    <li><a href='#'>Audi</a></li>
-                    <li><a href='#'>BMW</a></li>
-                    <li><a href='#'>Cadillac</a></li>
-                    <li><a href='#'>Ferrari</a></li>
+            <div id='matched_sites' class='ui-content'>
+                <p class="ui-site-title">http://127.0.0.1:5000/account/login</p>
+                <hr/>
+                <ul id="fields-list" data-theme="b" data-role="listview">
+
                 </ul>
             </div>
+            <!--
+             <form>
+                        <label for="text-basic">Text input:</label>
+                        <input type="text" name="text-basic" id="text-basic" value="">
+                        <input type="range" name="password_generator_field" id="password_generator_field" min="0" max="100" value="50">
+                </form>
+             -->
+            <div id='password_generator' class='ui-content'>
+                <form class="full-width-slider">
+                    <label for="Password_Value">Generated Password:</label>
+                    <input type="text" name="Password_Value" id="Password_Value">
+                    <input type="range" name="password_generator_field" id="password_generator_field" min="0" max="64" value="32"/>
+
+                </form>
+            </div>
         </div>
+    </div>
+    <div id="footer" data-theme="c" class="ui-footer ui-footer-fixed">
+        <button  class="ui-btn ui-btn-active ui-close-me">Close</button>
     </div>
 </div>
 </body>

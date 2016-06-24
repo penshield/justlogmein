@@ -7,7 +7,7 @@ static_folder="/media/snouto/rest/projects/justlogmein-project/justlogmein/stati
 The following is the MongoDB database connectivity parameters that are system wide applied
 """
 
-MONGODB_HOST="192.168.1.4"
+MONGODB_HOST="192.168.1.5"
 MONGODB_DB="justlogmein"
 MONGODB_PORT=27017
 

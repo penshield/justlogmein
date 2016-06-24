@@ -17,16 +17,22 @@ auto_style='cursor:auto;background-image: url("data:image/png;base64,iVBORw0KGgo
  bb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates.  p is the point and (x,y) its coordinates.
  */
 
-chrome.runtime.onMessage.addListener(function(request, sender, callback) {
-    if (request.message == "getdom") {
-        callback(document);
-    }
-});
-var isPointInside = function(rect,x,y){
 
-    return (rect.top <= x && x <= rect.bottom && rect.left <= y && y <= rect.right);
+var chosen_input = undefined;
 
+var setField = function(fieldName){
+
+    chrome.storage.local.get('matched_site',function(data){
+
+
+
+        chosen_input.value = data.matched_site.credentials[fieldName];
+        var frame = document.getElementById("embeddedFrame");
+        frame.remove();
+    });
 };
+
+
 
 
 
@@ -48,27 +54,27 @@ var inject_pattern = function(input,obj,type){
         rect = input.getBoundingClientRect();
 
             var iframe_style = "display: block !important; position: absolute !important; visibility: visible !important; z-index: 2147483647 !important; border-style: none !important; opacity: 1 !important; margin: 0px !important;";
-            iframe_style += "padding: 0px !important; width: 345px !important; height: 210px !important;" + "top:" + rect.bottom.toString() +"px !important; left:"+rect.left.toString() + "px  !important;";
+            iframe_style += "padding: 0px !important; width: 400px !important; height: 310px !important;" + "top:" + rect.bottom.toString() +"px !important; left:"+rect.left.toString() + "px  !important;";
         var iframe_obj = document.getElementById('embeddedFrame');
 
         if(iframe_obj != undefined && iframe_obj != null){
 
             iframe_obj.style = iframe_style;
 
-        }else{
+        }else {
             iframe_obj = document.createElement('iframe');
             iframe_obj.style = iframe_style;
-            iframe_obj.id ="embeddedFrame";
-            var html ="<html lang='en'> <head> <meta name='viewport' content='width=device-width, initial-scale=1'> <title>Just Log Me In - Field Settings</title> <link rel='stylesheet' href='%jquerymobilecss%'> <link rel='stylesheet' href='%jquerytheme%'> <link rel='stylesheet' href='%jquerystructure%'> <script type='application/javascript' src='%jquery%'></script> <script type='application/javascript' src-='%jquerysec%'></script> <script type='application/javascript' src='%jquerymobilejs%'></script> </head> <body> <div data-role='page' data-quicklinks='true'> <div data-demo-html='true'> <div data-role='tabs'> <div data-role='navbar'> <ul> <li><a href='#one' data-theme='b' data-ajax='false' data-icon='plus'>Add Site</a></li> <li><a href='#two' data-theme='b' data-ajax='false' data-icon='gear'>Matched Site(s)</a></li> <li><a href='ajax-content-ignore.html' data-theme='b' data-ajax='false' data-icon='eye'>Generate Password</a></li> </ul> </div> <div id='one' class='ui-content'> <h1>First tab contents</h1> </div> <div id='two' class='ui-content'> <ul data-role='listview'> <li><a href='#'>Acura</a></li> <li><a href='#'>Audi</a></li> <li><a href='#'>BMW</a></li> <li><a href='#'>Cadillac</a></li> <li><a href='#'>Ferrari</a></li> </ul> </div> </div> </div> <div data-role='footer' data-position='fixed'> <button class='btn btn-primary'>Close</button> </div> </div> </body> </html>";
-            var replacements = {'%jquerymobilecss%':chrome.extension.getURL('css/jquery.mobile-1.4.5.min.css'),
-            '%jquerytheme%':chrome.extension.getURL('css/jquery.mobile.theme-1.4.5.min.css'),
-            '%jquerystructure%':chrome.extension.getURL('css/jquery.mobile.structure-1.4.5.min.css'),
-            '%jquery%':chrome.extension.getURL('js/jquery.min.js'),
-            '%jquerymobilejs%':chrome.extension.getURL('js/jquery.mobile-1.4.5.min.js'),
-            "%jquerysec%":chrome.extension.getURL('js/iframesecurity.js')};
-            html = html.replace(/%\w+%/g,function(all){
-                return replacements[all] || all;
-            });
+            iframe_obj.id = "embeddedFrame";
+            /*var html ="<html lang='en'> <head> <meta name='viewport' content='width=device-width, initial-scale=1'> <title>Just Log Me In - Field Settings</title> <link rel='stylesheet' href='%jquerymobilecss%'> <link rel='stylesheet' href='%jquerytheme%'> <link rel='stylesheet' href='%jquerystructure%'> <script type='application/javascript' src='%jquery%'></script> <script type='application/javascript' src-='%jquerysec%'></script> <script type='application/javascript' src='%jquerymobilejs%'></script> </head> <body style='width:345px;height:210px;'> <div data-role='page' data-quicklinks='true'> <div data-demo-html='true'> <div data-role='tabs'> <div data-role='navbar'> <ul> <li><a href='#one' data-theme='b' data-ajax='false' data-icon='plus'>Add Site</a></li> <li><a href='#two' data-theme='b' data-ajax='false' data-icon='gear'>Matched Site(s)</a></li> <li><a href='ajax-content-ignore.html' data-theme='b' data-ajax='false' data-icon='eye'>Generate Password</a></li> </ul> </div> <div id='one' class='ui-content'> <h1>First tab contents</h1> </div> <div id='two' class='ui-content'> <ul data-role='listview'> <li><a href='#'>Acura</a></li> <li><a href='#'>Audi</a></li> <li><a href='#'>BMW</a></li> <li><a href='#'>Cadillac</a></li> <li><a href='#'>Ferrari</a></li> </ul> </div> </div> </div> <div data-role='footer' data-position='fixed'> <button class='btn btn-primary'>Close</button> </div> </div> </body> </html>";
+             var replacements = {'%jquerymobilecss%':chrome.extension.getURL('css/jquery.mobile-1.4.5.min.css'),
+             '%jquerytheme%':chrome.extension.getURL('css/jquery.mobile.theme-1.4.5.min.css'),
+             '%jquerystructure%':chrome.extension.getURL('css/jquery.mobile.structure-1.4.5.min.css'),
+             '%jquery%':chrome.extension.getURL('js/jquery.min.js'),
+             '%jquerymobilejs%':chrome.extension.getURL('js/jquery.mobile-1.4.5.min.js'),
+             "%jquerysec%":chrome.extension.getURL('js/iframesecurity.js')};
+             html = html.replace(/%\w+%/g,function(all){
+             return replacements[all] || all;
+             });*/
             //'data:text/html;charset=utf-8,' + encodeURI(html);
             //iframe_obj.src = 'data:text/html;charset=utf-8;origin=justlogmein,' + encodeURI(html);
             //iframe_obj.body = html;
@@ -76,8 +82,18 @@ var inject_pattern = function(input,obj,type){
             iframe_obj.name = "embeddedFrame";
             iframe_obj.target = document;
             document.body.appendChild(iframe_obj);
-
         }
+
+        var password = false;
+
+        if(input.type == "password")
+        password = true;
+
+        //now save the current site as a matched site for the iframe to pick it
+        chrome.storage.local.set({'matched_site':obj});
+
+        chosen_input = input;
+
 
     };
 
@@ -85,16 +101,6 @@ var inject_pattern = function(input,obj,type){
 
         input.style = auto_style;
     };
-
-    input.onclick = function(){
-
-        var frame = document.getElementById("embeddedFrame");
-
-        if(frame != null && frame != undefined){
-            frame.remove();
-        }
-    };
-
 
     if(obj.settings.autofill){
 
@@ -122,9 +128,11 @@ var inject = function(obj){
 
         if(u_tags.includes(input.name.toLowerCase()) || u_tags.includes(input.id.toLowerCase())){
             inject_pattern(input,obj,"username");
+
         }else if (input.type == "password" || pass_tags.includes(input.name.toLowerCase()) || pass_tags.includes(input.id.toLowerCase()))
         {
             inject_pattern(input,obj,"password");
+
         }
 
 
@@ -146,7 +154,8 @@ chrome.storage.local.get('sites',function(data){
 
         lnk = document.createElement('a');
         lnk.href = sites[i].url;
-        var current = {host:(lnk.origin+lnk.pathname),settings:sites[i].settings,credentials:{username:sites[i].username,password:sites[i].password}};
+        var current = {host:(lnk.origin+lnk.pathname),settings:sites[i].settings,credentials:{username:sites[i].username,password:sites[i].password},
+        fields:[{name:'username',value:sites[i].username},{name:'password',value:sites[i].password}]};
         reg = new RegExp(current.host);
 
         matched = location.match(reg);
@@ -163,7 +172,7 @@ chrome.storage.local.get('sites',function(data){
     }
 
 
-    chrome.runtime.sendMessage({message:'update_badge',payload:totalMatched});
+    chrome.runtime.sendMessage({message:'update_badge',payload:totalMatched,site:current_site});
 
 
     if(current_site != null && current_site != undefined){
