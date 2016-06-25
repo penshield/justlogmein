@@ -16,6 +16,7 @@ def sites_display():
 @app.route('/account/sites/delete/<id>',methods=['GET'])
 @login_required
 def sites_delete(id):
+    from controllers.gcm_utils import send_gcm_message
     if id is None:
         return redirect(url_for('sites_display'))
     else:
@@ -24,6 +25,7 @@ def sites_delete(id):
         if sites != None and len(sites) > 0:
             name = sites[0].name
             sites[0].delete()
+            send_gcm_message(user,message={'command':'reload_sites'},target='all')
             flash(u'%s has been Deleted Successfully' % name)
 
         return redirect(url_for('sites_display'))
@@ -36,7 +38,6 @@ def sites_update(id):
         return redirect(url_for('sites_display'))
     else:
         user = session['current_active_user']
-
         sites = UserSite.objects(user=user,id=id)
         form = UserSiteForm()
         form.load_site(sites[0])
@@ -49,6 +50,7 @@ def sites_update(id):
 @login_required
 def sites_add():
     import uuid
+    from controllers.gcm_utils import send_gcm_message
     form = UserSiteForm(request.form)
     if request.method =='GET':
         return render_template('pages/add-site.html',form=form,uuid=uuid)
@@ -60,6 +62,7 @@ def sites_add():
          #now let us zip them all
         fields_definition = zip(field_names,field_values,field_types)
         if fields_definition != None and len(fields_definition) > 0:
+            site.fields = []
             for field_definition in fields_definition:
                     name , value , type = field_definition
                     site.fields.append({
@@ -77,6 +80,8 @@ def sites_add():
                     img = open('%s/img/na.png'%static_folder)
                     site.icon = base64.b64encode(img.read())
             site.save()
+            gcm_message = {'command':'reload_sites'}
+            send_gcm_message(user,gcm_message,target='all')
             flash(u'Site has been saved Successfully')
             return redirect(url_for('sites_display'))
         else:
