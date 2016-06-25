@@ -11,7 +11,7 @@
 
                      },
     "permissions":[
-        "background","tabs","<all_urls>","storage"
+        "background","tabs","<all_urls>","storage","gcm"
     ],
     "content_scripts":[{
 
@@ -20,7 +20,7 @@
         "all_frames":true
     }],
     "background": {
-        "scripts": ["background.js","communication-background.js"],
+        "scripts": ["js/jquery.min.js","js/gcm.js","background.js","communication-background.js"],
         "persistent": false
     },
     "web_accessible_resources":[

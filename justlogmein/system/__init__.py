@@ -85,6 +85,7 @@ class User(db.Document, UserMixin):
     birthdate = db.DateTimeField(required=True)
     gender = db.IntField(required=True)
     roles = db.ListField(db.ReferenceField(Role), default=[])
+    gcm = db.ListField(required=False,default=[])
 
 User.ensure_index([('password',ASCENDING)],index_name='password_idx')
 User.ensure_index([('mobile',ASCENDING)],index_name='mobile_idx')

@@ -51,6 +51,8 @@ $(document).ready(function(){
                 //access the sites
                 chrome.storage.local.set({'sites':data.sites,'account':data.account});
                 chrome.browserAction.setPopup({popup:'pages/index.html'});
+                //now send a message for the background script to register in gcm
+                chrome.runtime.sendMessage({'msg':'gcm_register'});
                 finalResult= true;
             }
             return finalResult;

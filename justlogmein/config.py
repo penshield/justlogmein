@@ -74,3 +74,12 @@ EMAIL_MSG_CONFIRM_SUMMARY = """ """
 EMAIL_MSG_CONFIRM_DESCRIPTION = """ """
 EMAIL_MSG_CONFIRM_SUBJECT = ""
 EMAIL_TEMPLATES_DIR = "/".join([template_folder,"email"])
+
+
+
+"""
+This section configures the GCM settings for the entire system
+"""
+GCM_PROJECT_ID = 'justlogmein-1353'
+GCM_PROJECT_NUMBER = 'justlogmein-1353'
+GCM_API_KEY = 'AIzaSyB-2GK3fcjR5gHwzbo3SzO7n_APDRFDQMI'

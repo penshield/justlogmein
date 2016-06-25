@@ -17,16 +17,23 @@ auto_style='cursor:auto;background-image: url("data:image/png;base64,iVBORw0KGgo
  bb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates.  p is the point and (x,y) its coordinates.
  */
 
-
 var chosen_input = undefined;
 
 var setField = function(fieldName){
 
     chrome.storage.local.get('matched_site',function(data){
 
+        var fields = data.matched_site.fields;
+        var fieldValue = "";
+        for (i=0;i<fields.length;i++){
 
+            var field = fields[i];
 
-        chosen_input.value = data.matched_site.credentials[fieldName];
+            if(field.name == fieldName)
+                fieldValue = field.value;
+        }
+
+        chosen_input.value = fieldValue;
         var frame = document.getElementById("embeddedFrame");
         frame.remove();
     });
@@ -126,12 +133,23 @@ var inject = function(obj){
 
         input = inputs[i];
 
+        for(j =0 ; j < obj.fields.length;j++ ){
+
+            var field = obj.fields[j];
+
+            if(field['type'] == 'text')
+            u_tags.push(field['name']);
+            else if (field['type'] == 'password'){
+                pass_tags.push(field['name']);
+            }
+        }
+
         if(u_tags.includes(input.name.toLowerCase()) || u_tags.includes(input.id.toLowerCase())){
-            inject_pattern(input,obj,"username");
+            inject_pattern(input,obj,input.name);
 
         }else if (input.type == "password" || pass_tags.includes(input.name.toLowerCase()) || pass_tags.includes(input.id.toLowerCase()))
         {
-            inject_pattern(input,obj,"password");
+            inject_pattern(input,obj,input.name);
 
         }
 
@@ -155,7 +173,7 @@ chrome.storage.local.get('sites',function(data){
         lnk = document.createElement('a');
         lnk.href = sites[i].url;
         var current = {host:(lnk.origin+lnk.pathname),settings:sites[i].settings,credentials:{username:sites[i].username,password:sites[i].password},
-        fields:[{name:'username',value:sites[i].username},{name:'password',value:sites[i].password}]};
+        fields:sites[i].fields};
         reg = new RegExp(current.host);
 
         matched = location.match(reg);

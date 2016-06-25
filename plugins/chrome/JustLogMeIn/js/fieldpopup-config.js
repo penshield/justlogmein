@@ -2,46 +2,53 @@
  * Created by snouto on 19/06/16.
  */
 
-chrome.storage.local.get('matched_site',function(data){
 
-    site = data.matched_site;
-    input = data.input;
-    password = data.password;
+    $(document).ready(function(){
 
-    if(site != null && site != undefined){
 
-        //access the data
-        var title  = $(".ui-site-title");
-        var fieldsList = $("#fields-list").listview();
-        title.innerHTML = site.credentials.host;
-        /*one.innerHTML = "<h3>"+ site.host + "</h3>";
-        one.innerHTML += "<p>"+"<i>User Name</i> : " + site.credentials.username+"</p>";*/
-        if (site.fields != undefined && site.fields != null){
+        chrome.storage.local.get('matched_site',function(data){
 
-            //now loop over them
-            for(i =0;i<site.fields.length;i++){
-                var current_field = site.fields[i];
-                //get the field name and value
-                var item  = document.createElement('li');
-                item.setAttribute('list-field-name',current_field.name);
-                item.innerHTML ="<a href='#' class='ui-btn ui-btn-icon-right ui-icon-carat-r'><h3>Field : "+ current_field.name +"</h3><p>"+current_field.value+"</p></a>";
-                item.onclick = function(){
-                        var attr_value = this.attributes['list-field-name'];
-                        //now send a message
-                        chrome.runtime.sendMessage({message:'set_field',payload:attr_value.value});
+            site = data.matched_site;
+            input = data.input;
+            password = data.password;
 
-                 };
-                //now append it into the list item
-                fieldsList.append(item);
+            if(site != null && site != undefined){
+
+                //access the data
+                var title  = $(".ui-site-title");
+                var fieldsList = $("#fields-list").listview();
+                title.innerHTML = site.host;
+                /*one.innerHTML = "<h3>"+ site.host + "</h3>";
+                 one.innerHTML += "<p>"+"<i>User Name</i> : " + site.credentials.username+"</p>";*/
+                if (site.fields != undefined && site.fields != null){
+
+                    //now loop over them
+                    for(i =0;i<site.fields.length;i++){
+                        var current_field = site.fields[i];
+                        //get the field name and value
+                        var item  = document.createElement('li');
+                        item.setAttribute('list-field-name',current_field.name);
+                        item.innerHTML ="<a href='#' class='ui-btn ui-btn-icon-right ui-icon-carat-r'><h3>Field : "+ current_field.name +"</h3><p>"+current_field.value+"</p></a>";
+                        item.onclick = function(){
+                            var attr_value = this.attributes['list-field-name'];
+                            //now send a message
+                            chrome.runtime.sendMessage({message:'set_field',payload:attr_value.value});
+
+                        };
+                        //now append it into the list item
+                        fieldsList.append(item);
+                    }
+                }
+
+
+                fieldsList.refresh();
+
+
             }
-        }
+        });
 
 
-        fieldsList.refresh();
-
-
-    }
-});
+    });
 
 
 var passwordGenerator = function(length) {
