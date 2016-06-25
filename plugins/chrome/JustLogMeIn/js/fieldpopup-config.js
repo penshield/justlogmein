@@ -28,7 +28,11 @@
                         //get the field name and value
                         var item  = document.createElement('li');
                         item.setAttribute('list-field-name',current_field.name);
-                        item.innerHTML ="<a href='#' class='ui-btn ui-btn-icon-right ui-icon-carat-r'><h3>Field : "+ current_field.name +"</h3><p>"+current_field.value+"</p></a>";
+                        if(current_field['type'] == 'password'){
+                            item.innerHTML ="<a href='#' class='ui-btn ui-btn-icon-right ui-icon-carat-r'><h3>Field : "+ current_field.name +"</h3><p>"+"**********"+"</p></a>";
+                        }else{
+                            item.innerHTML ="<a href='#' class='ui-btn ui-btn-icon-right ui-icon-carat-r'><h3>Field : "+ current_field.name +"</h3><p>"+current_field.value+"</p></a>";
+                        }
                         item.onclick = function(){
                             var attr_value = this.attributes['list-field-name'];
                             //now send a message
