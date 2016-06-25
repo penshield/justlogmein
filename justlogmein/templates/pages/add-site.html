@@ -3,6 +3,10 @@
     Add new Site
 {% endblock %}
 
+{% block additionalHeaders %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+{% endblock %}
+
 {% block pagecontent %}
 
     {% include 'fragments/alerts.html' %}
@@ -82,6 +86,41 @@
                 </div>
             </div>
         </div>
+            <div class="form-group">
+                <div class="row m-b-20">
+                    <a href="#" id="addField-btn" class="btn btn-lg bgm-blue waves-effect pull-right">Add Field</a>
+                </div>
+            </div>
+           <div id="fields" class="form-group">
+               {% if form.fields is not undefined %}
+
+                   {% for field in form.fields %}
+                       {% set id = uuid.uuid4() %}
+                       <div id="{{ id }}" class="fg-line">
+                        <div class="col-sm-3 m-b-30">
+                            <label for="field_name[]">Field Name</label>
+                            <input type="text" name="field_name[]" id="field_name[]" value="{{ field.name }}" class="form-control input-sm">
+                        </div>
+                           <div class="col-sm-3 m-b-30">
+                               <label for="field_value[]">Field Value</label>
+                               <input type="text" name="field_value[]" id="field_value[]" value="{{ field.value }}" class="form-control input-sm">
+                           </div>
+                           <div class="col-sm-3 m-b-30">
+                               <label for="field_type[]">Field Type</label>
+                               <select id="field_type[]" name="field_type[]" value="{{ field.type }}" class="form-control">
+                                   <option value="Text">Text</option>
+                                   <option value="Password">Password</option>
+                               </select>
+                            </div>
+                        <div class="col-sm-1 m-b-30">
+                            <a href="#"  to-remove-id="{{ id }}" class="btn bgm-cyan btn-icon waves-effect waves-circle waves-float ui-item-deleter">
+                                <i class="md md-close"></i></a>
+                        </div>
+                       </div>
+                   {% endfor %}
+               {% endif %}
+           </div>
+
         <div class="form-group">
             <div class="fg-line">
                 <div class="row m-b-20">
@@ -94,9 +133,17 @@
         </div>
 
             </form>
+
+
     </div>
     </div>
 
 
 
+{% endblock %}
+
+
+{% block trailHeader %}
+    <script type="application/javascript" src="/static/js/jquery-ui.min.js"></script>
+    <script type="application/javascript" src="/static/js/addsite-dialog.js"></script>
 {% endblock %}

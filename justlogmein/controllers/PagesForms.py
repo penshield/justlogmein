@@ -19,6 +19,7 @@ class UserSiteForm(Form):
     notes = TextAreaField("notes")
     icon = HiddenField("icon")
     site_id = HiddenField("site_id")
+    fields = []
 
 
     def __init__(self,*args,**kargs):
@@ -42,6 +43,9 @@ class UserSiteForm(Form):
             self.icon.data = site.icon
             self.site_id.data = site.id
 
+            if site.fields is not None and len(site.fields) > 0:
+                self.fields = site.fields
+
     def validate(self):
         return super(UserSiteForm,self).validate()
 
@@ -63,6 +67,11 @@ class UserSiteForm(Form):
             'autologin':self.autologin.data,
             'autofill':self.autofill.data
         }
+
+        if site.username is not None and site.password is not None:
+            #append the username
+            site.fields.append({'name':'username','type':'text','value':site.username})
+            site.fields.append({'name':'password','type':'password','value':site.password})
 
         return site
 

@@ -15,8 +15,9 @@ class UserSite(Document):
     note=db.StringField(required=False)
     icon = db.StringField(required=False)
     settings = db.DictField(required=False,default={'favourite':False,'autofill':False,'autologin':False})
-    customFields = db.ListField(required=False)
+    fields = db.ListField(required=False)
     user = db.ReferenceField(User)
+
 
     meta = {
         'indexes':[{

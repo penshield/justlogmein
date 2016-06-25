@@ -31,7 +31,7 @@ def sites_delete(id):
 @app.route('/account/sites/update/<id>',methods=['GET'])
 @login_required
 def sites_update(id):
-
+    import uuid
     if id is None:
         return redirect(url_for('sites_display'))
     else:
@@ -40,7 +40,7 @@ def sites_update(id):
         sites = UserSite.objects(user=user,id=id)
         form = UserSiteForm()
         form.load_site(sites[0])
-        return render_template('pages/add-site.html',form=form)
+        return render_template('pages/add-site.html',form=form,uuid=uuid)
 
 
 
@@ -48,13 +48,26 @@ def sites_update(id):
 @app.route('/account/sites/add',methods=['GET','POST'])
 @login_required
 def sites_add():
-
+    import uuid
     form = UserSiteForm(request.form)
     if request.method =='GET':
-        return render_template('pages/add-site.html',form=form)
+        return render_template('pages/add-site.html',form=form,uuid=uuid)
     else:
+        site = form.get_site()
+        field_names = request.form.getlist("field_name[]")
+        field_values = request.form.getlist("field_value[]")
+        field_types = request.form.getlist("field_type[]")
+         #now let us zip them all
+        fields_definition = zip(field_names,field_values,field_types)
+        if fields_definition != None and len(fields_definition) > 0:
+            for field_definition in fields_definition:
+                    name , value , type = field_definition
+                    site.fields.append({
+                        'name':name,
+                        'value':value,
+                        'type':type
+                    })
         if form.validate_on_submit():
-            site = form.get_site()
             user = session['current_active_user']
             site.user = user
             if site.icon == None or len(site.icon) <= 0:
@@ -63,13 +76,14 @@ def sites_add():
                     import base64
                     img = open('%s/img/na.png'%static_folder)
                     site.icon = base64.b64encode(img.read())
-
             site.save()
             flash(u'Site has been saved Successfully')
             return redirect(url_for('sites_display'))
         else:
+            if site is not None:
+                form.load_site(site)
             flash(u'Please Fill all the required fields below')
-            return render_template('pages/add-site.html',form=form)
+            return render_template('pages/add-site.html',form=form,uuid=uuid)
 
 
 

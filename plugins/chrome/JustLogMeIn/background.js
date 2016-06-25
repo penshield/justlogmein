@@ -9,6 +9,8 @@ chrome.tabs.onRemoved.addListener(function(id,info){
     chrome.browserAction.setBadgeText({text:""});
 });
 
+
+
 chrome.runtime.onMessage.addListener(function(response,sender,senderResponse){
 
     if(response.message =="starting"){

@@ -28,6 +28,18 @@ def rest_login():
             site = {'name':found.name,'url':found.url,'username':found.username,'password':found.password,'folder':found.folder
                     ,'settings':{'favourite':found.settings['favourite'],'autologin':found.settings['autologin'],'autofill':found.settings['autofill']},
                     'id':str(found.id)}
+            if found.fields is not None and len(found.fields) > 0:
+                site['fields'] = []
+                for field in found.fields:
+                    site['fields'].append({
+                        'name':field['name'],
+                        'value':field['value'],
+                        'type':field['type']
+                    })
+            else:
+                site['fields'] = []
+                site['fields'].append({'name':'username','type':'text','value':site['username']})
+                site['fields'].append({'name':'password','type':'text','value':site['password']})
             sites.append(site)
 
         digester  = hashlib.md5()
