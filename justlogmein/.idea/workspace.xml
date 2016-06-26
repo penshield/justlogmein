@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cb45b900-bb76-427b-9ee5-29c8cb5bf109" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../services/justlogging.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/logging.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/queue.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../services/queuelistener.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/accountviews.py" afterPath="$PROJECT_DIR$/views/accountviews.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/flot-charts/bar-chart.js" afterPath="$PROJECT_DIR$/static/js/flot-charts/bar-chart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/vendors/bower_components/flot.curvedlines/curvedLines.js" afterPath="$PROJECT_DIR$/static/vendors/bower_components/flot.curvedlines/curvedLines.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/demo.js" afterPath="$PROJECT_DIR$/static/js/demo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/functions.js" afterPath="$PROJECT_DIR$/static/js/functions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/vendors/bower_components/flot-orderBars/js/jquery.flot.orderBars.js" afterPath="$PROJECT_DIR$/static/vendors/bower_components/flot-orderBars/js/jquery.flot.orderBars.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/vendors/bower_components/flot/jquery.flot.pie.js" afterPath="$PROJECT_DIR$/static/vendors/bower_components/flot/jquery.flot.pie.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/vendors/bower_components/mediaelement/build/mediaelement-and-player.js" afterPath="$PROJECT_DIR$/static/vendors/bower_components/mediaelement/build/mediaelement-and-player.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/pages/sites.py" afterPath="$PROJECT_DIR$/views/pages/sites.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="cb45b900-bb76-427b-9ee5-29c8cb5bf109" name="Default" comment="" />
     <ignored path="justlogmein.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -853,7 +837,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
