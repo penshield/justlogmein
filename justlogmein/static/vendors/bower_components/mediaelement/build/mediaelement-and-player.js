@@ -396,7 +396,7 @@ mejs.MediaFeatures = {
 				} else if (t.hasMsNativeFullScreen) {
 					return d.msFullscreenElement !== null;
 				}
-			}
+			};
 					
 			t.requestFullScreen = function(el) {
 		
@@ -410,7 +410,7 @@ mejs.MediaFeatures = {
 					el.msRequestFullscreen();
 
 				}
-			}
+			};
 			
 			t.cancelFullScreen = function() {				
 				if (t.hasWebkitNativeFullScreen) {
@@ -1216,7 +1216,7 @@ mejs.HtmlMediaElementShim = {
 			initVars;
 
 		// copy tagName from html media element
-		pluginMediaElement.tagName = htmlMediaElement.tagName
+		pluginMediaElement.tagName = htmlMediaElement.tagName;
 
 		// copy attributes from html media element to plugin media element
 		for (var i = 0; i < htmlMediaElement.attributes.length; i++) {
@@ -1400,19 +1400,19 @@ mejs.HtmlMediaElementShim = {
 						
 						player.playVideo = function() {
 							player.api( 'play' );
-						} 
+						};
 						player.stopVideo = function() {
 							player.api( 'unload' );
-						} 
+						};
 						player.pauseVideo = function() {
 							player.api( 'pause' );
-						} 
+						};
 						player.seekTo = function( seconds ) {
 							player.api( 'seekTo', seconds );
-						}
+						};
 						player.setVolume = function( volume ) {
 							player.api( 'setVolume', volume );
-						}
+						};
 						player.setMuted = function( muted ) {
 							if( muted ) {
 								player.lastVolume = player.api( 'getVolume' );
@@ -1421,7 +1421,7 @@ mejs.HtmlMediaElementShim = {
 								player.api( 'setVolume', player.lastVolume );
 								delete player.lastVolume;
 							}
-						}						
+						};
 
 						function createEvent(player, pluginMediaElement, eventName, e) {
 							var obj = {
@@ -1693,7 +1693,7 @@ mejs.YouTubeApi = {
 		
 		window[callbackName] = function(e) {
 			mejs.YouTubeApi.handleStateChange(e, player, pluginMediaElement);
-		}
+		};
 		
 		player.addEventListener('onStateChange', callbackName);
 		
@@ -1738,7 +1738,7 @@ mejs.YouTubeApi = {
 		}			
 		
 	}
-}
+};
 // IFRAME
 function onYouTubePlayerAPIReady() {
 	mejs.YouTubeApi.iFrameReady();
@@ -1789,7 +1789,7 @@ window.MediaElement = mejs.MediaElement;
  *  - exports - CommonJS, window ..
  *
  */
-;(function(context, exports, undefined) {
+(function (context, exports, undefined) {
     "use strict";
 
     var i18n = {
@@ -1904,8 +1904,7 @@ window.MediaElement = mejs.MediaElement;
 }(document, mejs));
 
 // i18n fixes for compatibility with WordPress
-;(function(exports, undefined) {
-
+(function (exports, undefined) {
     "use strict";
 
     if ( typeof mejsL10n != 'undefined' ) {
@@ -3317,8 +3316,8 @@ if (typeof jQuery != 'undefined') {
 						'aria-label': op.playText
 					});
 				}
-			};
-			togglePlayPause('pse');
+            }
+            togglePlayPause('pse');
 
 
 			media.addEventListener('play',function() {

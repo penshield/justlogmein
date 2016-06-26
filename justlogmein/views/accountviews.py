@@ -12,6 +12,7 @@ from controllers.security import SecurityTokenManager
 def register():
 
     from controllers.utilities import send_confirm_email
+    from controllers.queue import send_queue_message
     form = RegisterationForm(request.form)
 
     if request.method == 'POST':
@@ -19,24 +20,22 @@ def register():
         if form.validate_on_submit():
             try:
                 form.user.save()
+                queue_message = {'event':'add_user','user_id':str(form.user.id)}
+                send_queue_message(queue_message)
                 #now send a confirmation email
+                #TODO : remove this part and make it a background service
                 token = generate_confirmation_token(form.user)
                 link = "%s%s" % (request.host_url, 'account/confirmation')
                 result = send_confirm_email(token,form.user,link)
                 if result:
-
                     flash(u'Email Sent. Please Confirm your Email before Login')
                 else:
                     flash(u'Registeration Successful.Now You can Login')
-
                 return redirect(url_for('login'))
-
             except NotUniqueError, err:
                 flash(u'The username already exists !')
                 form.username.data = u""
                 return render_template('account-register.html', form=form)
-
-
         else:
 
             flash(u"Please fill all Required Fields")
@@ -146,7 +145,8 @@ def do_reset_token(token):
 
 @app.route('/account/reset/send')
 def do_reset_password():
-    from controllers.utilities import *
+    from controllers.utilities import  send_reset_email
+    from controllers.queue import send_queue_message
     if request.method == 'GET':
         email = request.args['email']
         if email != None and len(email) > 1:
@@ -154,6 +154,9 @@ def do_reset_password():
             if user != None:
                 link = "%s%s" % (request.host_url, 'account/recover')
                 token = generate_reset_password_token(user)
+                #TODO :Remove this as a background service
+                queue_message = {'event':'send_reset_message','user_id':str(user.id),'link':link,'token':token}
+                send_queue_message(queue_message)
                 result = send_reset_email(token,user,link)
                 if result:
                     flash(u'Password Reset Instructions have been sent Successfully')

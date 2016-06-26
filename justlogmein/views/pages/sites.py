@@ -51,6 +51,7 @@ def sites_update(id):
 def sites_add():
     import uuid
     from controllers.gcm_utils import send_gcm_message
+    from controllers.queue import  send_queue_message
     form = UserSiteForm(request.form)
     if request.method =='GET':
         return render_template('pages/add-site.html',form=form,uuid=uuid)
@@ -73,6 +74,7 @@ def sites_add():
         if form.validate_on_submit():
             user = session['current_active_user']
             site.user = user
+            #TODO : remove this part and make it a background service
             if site.icon == None or len(site.icon) <= 0:
                 #site.icon = get_icon(site.url)
                 if site.icon == None or len(site.icon) <= 0:
@@ -82,6 +84,8 @@ def sites_add():
             site.save()
             gcm_message = {'command':'reload_sites'}
             send_gcm_message(user,gcm_message,target='all')
+            queue_message = {'event':'add_site','site_id':str(site.id)}
+            send_queue_message(queue_message)
             flash(u'Site has been saved Successfully')
             return redirect(url_for('sites_display'))
         else:

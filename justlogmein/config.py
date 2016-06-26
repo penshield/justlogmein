@@ -83,3 +83,14 @@ This section configures the GCM settings for the entire system
 GCM_PROJECT_ID = 'justlogmein-1353'
 GCM_PROJECT_NUMBER = 'justlogmein-1353'
 GCM_API_KEY = 'AIzaSyB-2GK3fcjR5gHwzbo3SzO7n_APDRFDQMI'
+
+
+"""
+This section defines the queue management , For sending and receiving messages from RabbitMQ
+"""
+QUEUE_HOST=MONGODB_HOST
+#QUEUE_PORT=""
+QUEUE_USERNAME="admin"
+QUEUE_PASSWORD="admin"
+QUEUE_DEFAULT = "justlogmein"
+QUEUE_EXCHANGE_NAME=""

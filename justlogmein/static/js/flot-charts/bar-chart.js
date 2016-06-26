@@ -8,7 +8,7 @@ $(document).ready(function(){
     
     /* Create an Array push the data + Draw the bars*/
     
-    var barData = new Array();
+    var barData = [];
 
     barData.push({
             data : data1,
